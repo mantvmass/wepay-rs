@@ -2,5 +2,15 @@
 name = "wepay"
 version = "0.1.0"
 edition = "2024"
+description = "Rust SDK for Wepay API with Builder pattern and Proxy support."
+repository = "https://github.com/mantvmass/wepay"
 
 [dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+url = "2.5"
+
+[dev-dependencies]
+tokio = { version = "1.41.1", features = ["full"] }
