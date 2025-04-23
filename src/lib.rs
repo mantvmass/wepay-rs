@@ -18,6 +18,12 @@ pub struct Wepay {
     base_url: String,
 }
 
+impl Default for WepayBuilder {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl WepayBuilder {
     pub fn new() -> Self {
         WepayBuilder {

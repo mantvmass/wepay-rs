@@ -1,4 +1,3 @@
-use tokio;
 use wepay::Wepay;
 
 #[tokio::test]
@@ -7,12 +6,7 @@ async fn test_product_api() {
         .build()
         .expect("Failed to build Wepay client");
 
-    let result = wepay.product().await;
-
-    match result {
-        Ok(_) => assert!(true),
-        Err(_) => assert!(false),
-    }
+    wepay.product().await.expect("Failed to fetch product");
 }
 
 #[tokio::test]
@@ -26,7 +20,7 @@ async fn test_balance_api() {
         .create();
 
     let wepay = Wepay::builder()
-        .base_url(&mockito::server_url())
+        .base_url(mockito::server_url())
         .username("test_username")
         .password("test_password")
         .build()
