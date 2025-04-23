@@ -28,6 +28,11 @@ impl WepayBuilder {
         }
     }
 
+    pub fn username(mut self, username: impl Into<String>) -> Self {
+        self.username = Some(username.into());
+        self
+    }
+
     pub fn password(mut self, password: impl Into<String>) -> Self {
         self.password = Some(password.into());
         self

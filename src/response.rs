@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 pub struct Balance {
     pub code: String,
     pub ledger_balance: String,
-    pub available_balance: String,
+    pub available_balance: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -101,11 +101,4 @@ pub struct Mtopup {
     pub maximum_amount: i64,
     pub refundable: bool,
     pub denomination: Vec<Denomination>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct BalanceResponse {
-    pub code: String,
-    pub ledger_balance: Option<String>,
-    pub available_balance: Option<f64>,
 }
