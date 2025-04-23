@@ -68,7 +68,6 @@ impl WepayBuilder {
 }
 
 impl Wepay {
-
     pub fn builder() -> WepayBuilder {
         WepayBuilder::new()
     }
@@ -110,5 +109,4 @@ impl Wepay {
 
         Ok(result)
     }
-
 }
