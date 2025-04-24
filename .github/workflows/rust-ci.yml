@@ -39,6 +39,17 @@ jobs:
     - name: Run Clippy
       run: cargo clippy --all-targets --all-features -- -D warnings
 
-    # รัน tests
+    # สร้าง .env รันเฉพาะเมื่อไม่ได้มาจาก PR ของ fork
+    - name: Create .env file (only if secrets available and safe)
+      if: ${{ github.event_name == 'push' || github.repository == github.event.pull_request.head.repo.full_name }}
+      run: |
+        cat <<EOF > .env
+        WEPAY_ENDPOINT=${{ secrets.WEPAY_ENDPOINT }}
+        WEPAY_USERNAME=${{ secrets.WEPAY_USERNAME }}
+        WEPAY_PASSWORD=${{ secrets.WEPAY_PASSWORD }}
+        EOF
+
+    # รัน tests เฉพาะถ้ามี secrets และไม่ใช่ fork PR
     - name: Run tests
+      if: ${{ github.event_name == 'push' || github.repository == github.event.pull_request.head.repo.full_name }}
       run: cargo test --all-features --verbose
