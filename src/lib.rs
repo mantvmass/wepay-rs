@@ -4,7 +4,7 @@ pub mod response;
 use error::{StatusCode, WepayError};
 use reqwest::{Client, ClientBuilder, Proxy};
 
-// Struct สำหรับสร้างอินสแตนซ์ของ Wepay ด้วยตัวเลือกที่กำหนดเอง
+/// Struct สำหรับสร้างอินสแตนซ์ของ Wepay ด้วยตัวเลือกที่กำหนดเอง
 pub struct WepayBuilder {
     username: Option<String>,
     password: Option<String>,
@@ -12,7 +12,7 @@ pub struct WepayBuilder {
     proxy: Option<Proxy>,
 }
 
-// Struct หลักที่ใช้เรียกใช้งาน API ต่าง ๆ ของ Wepay
+/// Struct หลักที่ใช้เรียกใช้งาน API ต่าง ๆ ของ Wepay
 pub struct Wepay {
     client: Client,
     username: Option<String>,

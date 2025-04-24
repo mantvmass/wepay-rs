@@ -1,7 +1,7 @@
 use std::fmt;
 use thiserror::Error;
 
-// ข้อผิดพลาดที่อาจเกิดขึ้นในระบบ
+/// ข้อผิดพลาดที่อาจเกิดขึ้นในระบบ
 #[derive(Error, Debug)]
 pub enum WepayError {
     #[error("ไม่มีข้อมูลรับรอง: {0}")]
@@ -18,7 +18,7 @@ pub enum WepayError {
     },
 }
 
-// รหัสสถานะจาก API
+/// รหัสสถานะจาก API
 #[derive(Debug, PartialEq)]
 pub enum StatusCode {
     Success,                      // รายการสำเร็จ
@@ -58,7 +58,7 @@ impl fmt::Display for StatusCode {
 }
 
 impl StatusCode {
-    // แปลงรหัสสถานะเป็นสตริง
+    /// แปลงรหัสสถานะเป็นสตริง
     pub fn as_str(&self) -> &str {
         match self {
             StatusCode::Success => "00000",                      // รายการสำเร็จ
@@ -92,7 +92,7 @@ impl StatusCode {
         }
     }
 
-    // แปลงสตริงเป็นรหัสสถานะ
+    /// แปลงสตริงเป็นรหัสสถานะ
     #[allow(clippy::should_implement_trait)]
     pub fn from_str(code: &str) -> Self {
         match code {

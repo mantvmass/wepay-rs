@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 use serde_with::{DisplayFromStr, serde_as};
 
-// Trait สำหรับ response types ทั้งหมด
+/// Trait สำหรับ response types ทั้งหมด
 pub trait ApiResponse {
     fn code(&self) -> &str;
 }
 
-// โครงสร้างสำหรับ error response
+/// โครงสร้างสำหรับ error response
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ErrorResponse {
     pub code: String,
@@ -19,7 +19,7 @@ impl ApiResponse for ErrorResponse {
     }
 }
 
-// โครงสร้างสำหรับการตอบกลับของ API ตรวจสอบยอดคงเหลือ
+/// โครงสร้างสำหรับการตอบกลับของ API ตรวจสอบยอดคงเหลือ
 #[serde_as]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Balance {
@@ -36,7 +36,7 @@ impl ApiResponse for Balance {
     }
 }
 
-// Generic enum สำหรับ API response
+/// Generic enum สำหรับ API response
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GenericApiResponse<T: ApiResponse> {
@@ -44,7 +44,7 @@ pub enum GenericApiResponse<T: ApiResponse> {
     Error(ErrorResponse),
 }
 
-// โครงสร้างสำหรับรายการสินค้าจาก wepay
+/// โครงสร้างสำหรับรายการสินค้าจาก wepay
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Product {
     pub data: Data,
