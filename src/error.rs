@@ -10,8 +10,12 @@ pub enum WepayError {
     #[error("ข้อผิดพลาดในการร้องขอ: {0}")]
     RequestError(#[from] reqwest::Error), // ข้อผิดพลาดจาก reqwest
 
-    #[error("ข้อผิดพลาดจาก API: {0}")]
-    ApiError(StatusCode), // ข้อผิดพลาดจาก API ตามรหัสสถานะ
+    #[error("ข้อผิดพลาดจาก API: code={code}, desc={desc:?}")]
+    ApiError {
+        // ข้อผิดพลาดจาก API ตามรหัสสถานะ
+        code: StatusCode,
+        desc: String,
+    },
 }
 
 // รหัสสถานะจาก API
@@ -89,6 +93,7 @@ impl StatusCode {
     }
 
     // แปลงสตริงเป็นรหัสสถานะ
+    #[allow(clippy::should_implement_trait)]
     pub fn from_str(code: &str) -> Self {
         match code {
             "00000" => StatusCode::Success,                      // รายการสำเร็จ

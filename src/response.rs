@@ -1,13 +1,50 @@
 use serde::{Deserialize, Serialize};
+use serde_with::{DisplayFromStr, serde_as};
+
+// Trait สำหรับ response types ทั้งหมด
+pub trait ApiResponse {
+    fn code(&self) -> &str;
+}
+
+// โครงสร้างสำหรับ error response
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ErrorResponse {
+    pub code: String,
+    pub desc: String,
+}
+
+impl ApiResponse for ErrorResponse {
+    fn code(&self) -> &str {
+        &self.code
+    }
+}
 
 // โครงสร้างสำหรับการตอบกลับของ API ตรวจสอบยอดคงเหลือ
+#[serde_as]
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Balance {
     pub code: String,
-    pub ledger_balance: String,
+    #[serde_as(as = "DisplayFromStr")]
+    pub ledger_balance: f64,
+    #[serde_as(as = "DisplayFromStr")]
     pub available_balance: f64,
 }
 
+impl ApiResponse for Balance {
+    fn code(&self) -> &str {
+        &self.code
+    }
+}
+
+// Generic enum สำหรับ API response
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GenericApiResponse<T: ApiResponse> {
+    Success(T),
+    Error(ErrorResponse),
+}
+
+// โครงสร้างสำหรับรายการสินค้าจาก wepay
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Product {
     pub data: Data,
