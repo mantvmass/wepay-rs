@@ -51,7 +51,7 @@ async fn test_topup_mobile_mock() {
             "https://www.mywebsite.com/wepay_result.php",
         )
         .await
-        .expect("Failed to get user balance.");
+        .expect("Failed to topup mobile.");
 
     assert_eq!(result.code, "00000");
     assert_eq!(result.balance, 162.24);
