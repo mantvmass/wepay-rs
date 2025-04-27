@@ -7,6 +7,9 @@ pub enum WepayError {
     #[error("ไม่มีข้อมูลรับรอง: {0}")]
     MissingCredentials(&'static str), // ขาดข้อมูลรับรองที่จำเป็น
 
+    #[error("รูปแบบข้อมูลไม่ถูกต้อง: {0}")]
+    InvalidFormat(&'static str), // รูปแบบข้อมูลไม่ถูกต้อง (ดูตามเอกสารของ wepay)
+
     #[error("ข้อผิดพลาดในการร้องขอ: {0}")]
     RequestError(#[from] reqwest::Error), // ข้อผิดพลาดจาก reqwest
 

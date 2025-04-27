@@ -36,6 +36,25 @@ impl ApiResponse for Balance {
     }
 }
 
+/// โครงสร้างสำหรับการตอบกลับของ API [billpay, mtopup, cashcard]
+#[serde_as]
+#[derive(Debug, Serialize, Deserialize)]
+pub struct BillCommon {
+    pub code: String,
+    pub bill_id: u32,
+    pub transaction_id: String,
+    pub queue_id: u32,
+    pub total_amount: f64,
+    #[serde_as(as = "DisplayFromStr")]
+    pub balance: f64,
+}
+
+impl ApiResponse for BillCommon {
+    fn code(&self) -> &str {
+        &self.code
+    }
+}
+
 /// Generic enum สำหรับ API response
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]

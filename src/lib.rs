@@ -1,5 +1,6 @@
 pub mod error;
 pub mod response;
+mod validator;
 
 use error::{StatusCode, WepayError};
 use reqwest::{Client, ClientBuilder, Proxy};
@@ -153,6 +154,56 @@ impl Wepay {
             ("username", username.as_str()),
             ("password", password.as_str()),
             ("type", "balance_inquiry"),
+        ];
+
+        // ส่ง POST request และเรียก handle_response เพื่อแปลง response
+        let response = self.client.post(&url).form(&params).send().await?;
+        Self::handle_response(response).await
+    }
+
+    /// เติมเงินมือถือผ่าน API
+    pub async fn topup_mobile(
+        &self,
+        dest_ref: &str,
+        company: &str,
+        amount: &f32,
+        target: &str,
+        callback: &str,
+    ) -> Result<response::BillCommon, WepayError> {
+        if !validator::is_valid_ref(dest_ref) {
+            return Err(WepayError::InvalidFormat("dest_ref"));
+        }
+
+        if !validator::is_thai_mobile_number(target) {
+            return Err(WepayError::InvalidFormat("target or pay_to_ref1"));
+        }
+
+        if !validator::is_valid_url(callback) {
+            return Err(WepayError::InvalidFormat("callback or resp_url"));
+        }
+
+        // ตรวจสอบว่า username/password ถูกกำหนดไว้หรือไม่
+        let username = self
+            .username
+            .as_ref()
+            .ok_or(WepayError::MissingCredentials("username"))?;
+        let password = self
+            .password
+            .as_ref()
+            .ok_or(WepayError::MissingCredentials("password"))?;
+
+        let url = format!("{}/client_api.json.php", self.base_url);
+
+        // เตรียม parameters ที่จะส่งใน form request
+        let params = [
+            ("username", username.as_str()),
+            ("password", password.as_str()),
+            ("type", "mtopup"),
+            ("dest_ref", dest_ref),
+            ("pay_to_company", company),
+            ("pay_to_amount", &amount.to_string()),
+            ("pay_to_ref1", target),
+            ("resp_url", callback),
         ];
 
         // ส่ง POST request และเรียก handle_response เพื่อแปลง response
