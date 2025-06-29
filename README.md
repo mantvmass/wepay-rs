@@ -40,7 +40,7 @@ async fn main() {
 
 ## Documentation
 
-Comprehensive documentation is available at [docs.rs/wepay](https://docs.rs/wepay).
+Comprehensive documentation is available at [docs.rs/wepay-rs](https://docs.rs/wepay-rs).
 
 ## Contributing
 
