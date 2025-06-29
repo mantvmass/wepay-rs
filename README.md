@@ -10,11 +10,11 @@ Welcome to the unofficial Wepay SDK for Rust! This library provides an easy-to-u
 
 ## Installation
 
-Add `wepay` to your `Cargo.toml`:
+Add `wepay-rs` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-wepay = "0.1.0"
+wepay-rs = "0.1.0"
 ```
 
 Then run:
@@ -28,7 +28,7 @@ cargo build
 Here is a quick example of how to use the Wepay SDK:
 
 ```rust
-use wepay::Wepay;
+use wepay_rs::Wepay;
 
 #[tokio::main]
 async fn main() {
