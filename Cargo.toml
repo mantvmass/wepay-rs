@@ -1,11 +1,11 @@
 [package]
-name = "wepay"
+name = "wepay-rs"
 version = "0.1.0"
 authors = ["Phumin Maliwan <kliop2317@gmail.com>"]
 edition = "2024"
 description = "Rust SDK for Wepay API with Builder pattern and Proxy support."
 license = "MIT"
-repository = "https://github.com/mantvmass/wepay"
+repository = "https://github.com/mantvmass/wepay-rs"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["json"] }

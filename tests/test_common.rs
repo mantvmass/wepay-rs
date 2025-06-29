@@ -1,6 +1,6 @@
 use dotenvy::dotenv;
 use std::env;
-use wepay::Wepay;
+use wepay_rs::Wepay;
 
 #[tokio::test]
 async fn test_product() {

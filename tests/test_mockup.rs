@@ -1,4 +1,4 @@
-use wepay::Wepay;
+use wepay_rs::Wepay;
 
 #[tokio::test]
 async fn test_balance_mock() {

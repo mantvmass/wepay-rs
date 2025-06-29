@@ -1,6 +1,6 @@
 use dotenvy::dotenv;
 use std::env;
-use wepay::{Wepay, error::WepayError};
+use wepay_rs::{Wepay, error::WepayError};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

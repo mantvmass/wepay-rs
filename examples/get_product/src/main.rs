@@ -1,5 +1,5 @@
 use serde_json::to_string_pretty;
-use wepay::Wepay;
+use wepay_rs::Wepay;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
